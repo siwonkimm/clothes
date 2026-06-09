@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오늘의 날씨 OOTD - 맞춤형 날씨 코디 추천</title>
+  <!-- SEO Tags -->
+  <meta name="description" content="실시간 온도와 날씨, 원하는 스타일에 딱 맞는 오늘의 코디(OOTD)를 추천받으세요.">
+  <meta name="keywords" content="OOTD, 날씨 코디, 온도별 옷차림, 코디 추천, 스타일 추천">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <span class="logo-icon"><i data-lucide="shirt"></i></span>
+        <h1 class="logo-text">ClotheCast</h1>
+      </div>
+      <p class="subtitle">실시간 온도와 스타일에 맞춘 오늘의 OOTD 추천 서비스</p>
+    </header>
+
+    <!-- Main Content Grid -->
+    <main class="main-content">
+      
+      <!-- Left side: Controls (Hero + Options) -->
+      <section class="control-panel">
+        
+        <!-- Dynamic Hero Banner -->
+        <div id="hero-banner" class="hero-banner transition-all">
+          <div class="hero-glass-overlay"></div>
+          <div class="hero-content">
+            <div class="weather-visual-info">
+              <div class="temp-display">
+                <span id="hero-temp-val">18</span><span class="unit">°C</span>
+              </div>
+              <div class="weather-icon-wrapper" id="hero-weather-icon">
+                <i data-lucide="sun" class="w-12 h-12"></i>
+              </div>
+            </div>
+            <div class="weather-text-info">
+              <h2 class="weather-status-title" id="hero-status-title">활동하기 참 좋은 날씨입니다</h2>
+              <p class="weather-status-desc" id="hero-status-desc">선선한 가을 바람이 불어오니 가벼운 아우터를 챙겨보세요.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weather Warning Section (Hidden by default, shown for Rain/Snow) -->
+        <div id="weather-warning" class="weather-warning-banner hidden">
+          <div class="warning-icon">
+            <i data-lucide="alert-triangle"></i>
+          </div>
+          <div class="warning-text">
+            <span class="warning-title" id="warning-title">날씨 주의보</span>
+            <p class="warning-desc" id="warning-desc">비 소식이 있으니 외출 시 우산을 꼭 챙기세요!</p>
+          </div>
+        </div>
+
+        <!-- Configuration Form Card -->
+        <div class="config-card">
+          <div class="config-section">
+            <div class="section-title">
+              <i data-lucide="thermometer"></i>
+              <span>오늘의 온도 조절</span>
+              <span class="value-bubble" id="temp-bubble">18°C</span>
+            </div>
+            <div class="slider-container">
+              <span class="slider-limit min">-10°C</span>
+              <div class="range-wrapper">
+                <input type="range" id="temp-slider" min="-10" max="40" value="18" step="1" class="custom-slider">
+                <div class="slider-track-fill" id="slider-fill"></div>
+              </div>
+              <span class="slider-limit max">40°C</span>
+            </div>
+          </div>
+
+          <div class="config-section">
+            <div class="section-title">
+              <i data-lucide="cloud-sun"></i>
+              <span>현재 날씨</span>
+            </div>
+            <div class="weather-options">
+              <button type="button" class="weather-btn active" data-weather="sunny">
+                <i data-lucide="sun"></i>
+                <span>맑음</span>
+              </button>
+              <button type="button" class="weather-btn" data-weather="cloudy">
+                <i data-lucide="cloud"></i>
+                <span>흐림</span>
+              </button>
+              <button type="button" class="weather-btn" data-weather="rainy">
+                <i data-lucide="cloud-rain"></i>
+                <span>비</span>
+              </button>
+              <button type="button" class="weather-btn" data-weather="snowy">
+                <i data-lucide="snowflake"></i>
+                <span>눈</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="two-column-row">
+            <div class="config-section">
+              <div class="section-title">
+                <i data-lucide="user"></i>
+                <span>성별</span>
+              </div>
+              <div class="gender-options">
+                <button type="button" class="gender-btn active" data-gender="unisex">
+                  <span>공용</span>
+                </button>
+                <button type="button" class="gender-btn" data-gender="male">
+                  <span>남성</span>
+                </button>
+                <button type="button" class="gender-btn" data-gender="female">
+                  <span>여성</span>
+                </button>
+              </div>
+            </div>
+
+            <div class="config-section">
+              <div class="section-title">
+                <i data-lucide="palette"></i>
+                <span>스타일</span>
+              </div>
+              <div class="style-select-wrapper">
+                <select id="style-select" class="custom-select">
+                  <option value="casual" selected>캐주얼 (Casual)</option>
+                  <option value="office">오피스 (Office)</option>
+                  <option value="street">스트릿 (Street)</option>
+                  <option value="minimal">미니멀 (Minimal)</option>
+                </select>
+                <div class="select-arrow">
+                  <i data-lucide="chevron-down"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right side: Recommendations Grid -->
+      <section class="recommendations-container">
+        <div class="rec-header">
+          <h2 class="rec-title">오늘의 추천 룩북 (OOTD)</h2>
+          <span class="rec-tagline" id="rec-combination-desc">캐주얼 스타일에 어울리는 오늘의 추천 조합입니다.</span>
+        </div>
+
+        <div class="recommendations-grid" id="rec-grid">
+          <!-- Top Card -->
+          <div class="rec-card" data-category="top">
+            <div class="card-glass-glow"></div>
+            <div class="card-header">
+              <span class="card-badge badge-top">상의</span>
+              <span class="card-icon"><i data-lucide="shirt"></i></span>
+            </div>
+            <div class="card-body">
+              <h3 class="item-name" id="top-item-name">옥스포드 셔츠</h3>
+              <p class="item-desc" id="top-item-desc">바스락거리는 촉감의 클래식한 오버핏 셔츠로 단정하면서 내추럴한 분위기를 연출합니다.</p>
+            </div>
+            <div class="card-footer">
+              <div class="tags-container" id="top-item-tags">
+                <span class="tag">#셔츠코디</span>
+                <span class="tag">#데일리</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Card -->
+          <div class="rec-card" data-category="bottom">
+            <div class="card-glass-glow"></div>
+            <div class="card-header">
+              <span class="card-badge badge-bottom">하의</span>
+              <span class="card-icon"><i data-lucide="utility-pole"></i></span>
+            </div>
+            <div class="card-body">
+              <h3 class="item-name" id="bottom-item-name">슬림 크롭 데님 팬츠</h3>
+              <p class="item-desc" id="bottom-item-desc">어디에나 매치하기 쉬운 중청 데님으로 편안한 착용감을 선사합니다.</p>
+            </div>
+            <div class="card-footer">
+              <div class="tags-container" id="bottom-item-tags">
+                <span class="tag">#데님</span>
+                <span class="tag">#청바지</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Outerwear Card -->
+          <div class="rec-card" data-category="outer">
+            <div class="card-glass-glow"></div>
+            <div class="card-header">
+              <span class="card-badge badge-outer">아우터</span>
+              <span class="card-icon"><i data-lucide="pocket"></i></span>
+            </div>
+            <div class="card-body">
+              <h3 class="item-name" id="outer-item-name">가벼운 윈드브레이커</h3>
+              <p class="item-desc" id="outer-item-desc">일교차가 큰 날 가볍게 걸치기 좋고 바람을 효과적으로 막아줍니다.</p>
+            </div>
+            <div class="card-footer">
+              <div class="tags-container" id="outer-item-tags">
+                <span class="tag">#바람막이</span>
+                <span class="tag">#가벼운아우터</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shoes Card -->
+          <div class="rec-card" data-category="shoes">
+            <div class="card-glass-glow"></div>
+            <div class="card-header">
+              <span class="card-badge badge-shoes">신발</span>
+              <span class="card-icon"><i data-lucide="footprints"></i></span>
+            </div>
+            <div class="card-body">
+              <h3 class="item-name" id="shoes-item-name">베이직 캔버스화</h3>
+              <p class="item-desc" id="shoes-item-desc">활동성이 뛰어나고 어떤 캐주얼한 의상에도 자연스럽게 스며드는 신발입니다.</p>
+            </div>
+            <div class="card-footer">
+              <div class="tags-container" id="shoes-item-tags">
+                <span class="tag">#스니커즈</span>
+                <span class="tag">#캔버스화</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Point Card -->
+          <div class="rec-card" data-category="point">
+            <div class="card-glass-glow"></div>
+            <div class="card-header">
+              <span class="card-badge badge-point">포인트</span>
+              <span class="card-icon"><i data-lucide="sparkles"></i></span>
+            </div>
+            <div class="card-body">
+              <h3 class="item-name" id="point-item-name">가죽 크로스백</h3>
+              <p class="item-desc" id="point-item-desc">수납력이 좋고 전체적인 룩에 깔끔한 완성도를 더해주는 포인트 가방입니다.</p>
+            </div>
+            <div class="card-footer">
+              <div class="tags-container" id="point-item-tags">
+                <span class="tag">#가방</span>
+                <span class="tag">#가죽백</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <p>© 2026 ClotheCast. All rights reserved. Designed for optimal styling based on weather.</p>
+    </footer>
+  </div>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Main Script -->
+  <script src="app.js"></script>
+</body>
+</html>
